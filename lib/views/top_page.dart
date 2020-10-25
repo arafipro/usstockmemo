@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:usstock_name/views/edit_page.dart';
+import 'package:usstock_name/views/list_page.dart';
 
 class TopPage extends StatelessWidget {
   @override
@@ -12,11 +14,21 @@ class TopPage extends StatelessWidget {
           children: [
             RaisedButton(
               child: Text('New'),
-              onPressed: () {}
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => EditPage()),
+                );
+              }
             ),
             RaisedButton(
               child: Text('Stock List'),
-              onPressed: () {}
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ListPage()),
+                );
+              }
             ),
           ],
         )
