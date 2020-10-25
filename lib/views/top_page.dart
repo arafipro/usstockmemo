@@ -7,7 +7,21 @@ class TopPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('US Stock Name'),
       ),
-      body: Container(),
+      body: Container(
+        child: ListView(
+          children: [
+            ListTile(
+              title: Text('list 1'),
+            ),
+            ListTile(
+              title: Text('list 2'),
+            ),
+            ListTile(
+              title: Text('list 3'),
+            ),
+          ]
+        ),
+      ),
     );
   }
 }
