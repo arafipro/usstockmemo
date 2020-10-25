@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TopPage extends StatelessWidget {
+class ListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +45,10 @@ class TopPage extends StatelessWidget {
             ),
           ]
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {},
       ),
     );
   }
