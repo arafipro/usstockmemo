@@ -5,7 +5,7 @@ class ListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('US Stock Name'),
+        title: Text('US Stock Name List'),
       ),
       body: Container(
         child: ListView(
