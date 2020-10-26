@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:usstock_name/views/edit_page.dart';
-import 'package:usstock_name/views/list_page.dart';
+import 'package:usstock_name/pages/edit_page.dart';
+import 'package:usstock_name/pages/list_page.dart';
 
 class TopPage extends StatelessWidget {
   @override

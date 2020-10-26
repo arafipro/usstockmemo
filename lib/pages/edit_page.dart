@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:usstock_name/provider_model/edit_list_model.dart';
+import 'package:usstock_name/viewmodels/edit_list_model.dart';
 
 class EditPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<EditListModel>(
