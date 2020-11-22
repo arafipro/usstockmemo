@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:usstock_name/pages/top_page.dart';
+import 'package:usstock_name/views/top_page.dart';
 
 void main() => runApp(MyApp());
 
