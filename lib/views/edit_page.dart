@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:usstockmemo/viewmodels/edit_list_model.dart';
+import 'package:usstockmemo/viewmodels/market_list_model.dart';
 
 class EditPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<EditListModel>(
-      create: (_) => EditListModel(),
+    return ChangeNotifierProvider<MarketListModel>(
+      create: (_) => MarketListModel(),
       child: Scaffold(
         appBar: AppBar(
           title: Text('US Stock Name Edit'),
@@ -48,7 +48,7 @@ class EditPage extends StatelessWidget {
                     fontWeight: FontWeight.w300,
                   ),
                 ),
-                Consumer<EditListModel>(
+                Consumer<MarketListModel>(
                   builder: (context, model, child) {
                     return ListTile(
                       subtitle: DropdownButton<String>(
