@@ -7,7 +7,7 @@ class TopPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('US Stock Name'),
+        title: Text('US Stock Memo'),
       ),
       body: Center(
         child: Column(

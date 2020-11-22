@@ -9,7 +9,7 @@ class EditPage extends StatelessWidget {
       create: (_) => MarketListModel(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('US Stock Name Edit'),
+          title: Text('US Stock Memo Edit'),
         ),
         body: ListView(
           children: [
@@ -51,7 +51,7 @@ class EditPage extends StatelessWidget {
                 Consumer<MarketListModel>(
                   builder: (context, model, child) {
                     return ListTile(
-                      subtitle: DropdownButton<String>(
+                        subtitle: DropdownButton<String>(
                       underline: Container(
                         height: 1,
                         color: Colors.black26,
@@ -79,6 +79,22 @@ class EditPage extends StatelessWidget {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Expanded(
+                child: RaisedButton(
+                  color: Theme.of(context).primaryColorDark,
+                  textColor: Theme.of(context).primaryColorLight,
+                  child: Text(
+                    'save',
+                    textScaleFactor: 1.5,
+                  ),
+                  onPressed: () {
+                    print('save');
+                  },
                 ),
               ),
             ),
