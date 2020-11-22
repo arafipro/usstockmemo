@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:usstock_name/viewmodels/edit_list_model.dart';
+import 'package:usstockmemo/viewmodels/edit_list_model.dart';
 
 class EditPage extends StatelessWidget {
   @override

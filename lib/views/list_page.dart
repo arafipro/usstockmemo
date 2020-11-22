@@ -12,7 +12,7 @@ class ListPage extends StatelessWidget {
           children: [
             ListTile(
               title: Text('name 1 (ticker 1)'),
-              subtitle: Text('market 1'),
+              subtitle: Text('createdAt'),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
