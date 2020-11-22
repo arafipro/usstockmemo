@@ -38,32 +38,50 @@ class EditPage extends StatelessWidget {
             SizedBox(
               height: 8,
             ),
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                '    Market',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
-              ),
-              Consumer<EditListModel>(
-                builder: (context, model, child) {
-                  return ListTile(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Market',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+                Consumer<EditListModel>(
+                  builder: (context, model, child) {
+                    return ListTile(
                       subtitle: DropdownButton<String>(
-                    underline: Container(
-                      height: 1,
-                      color: Colors.black26,
-                    ),
-                    value: model.dropdownValue,
-                    onChanged: model.onChanged,
-                    items: model.markets
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ));
-                },
+                      underline: Container(
+                        height: 1,
+                        color: Colors.black26,
+                      ),
+                      value: model.dropdownValue,
+                      onChanged: model.onChanged,
+                      items: model.markets
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ));
+                  },
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: TextFormField(
+                maxLines: 10,
+                decoration: InputDecoration(
+                  labelText: 'Attention',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                ),
               ),
-            ]),
+            ),
           ],
         ),
       ),
