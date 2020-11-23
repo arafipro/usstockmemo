@@ -105,7 +105,7 @@ class EditPage extends StatelessWidget {
                     onPressed: () async {
                       model.startLoading();
                       if (isUpdate) {
-                        // await updateDog(model, context);
+                        await updateMemo(model, context);
                       } else {
                         await addMemo(model, context);
                       }
@@ -129,6 +129,46 @@ class EditPage extends StatelessWidget {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('保存しました！'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      Navigator.of(context).pop();
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(e.toString()),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  Future updateMemo(EditModel model, BuildContext context) async {
+    try {
+      await model.updateMemo(stockmemo);
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('更新しました！'),
             actions: <Widget>[
               FlatButton(
                 child: Text('OK'),
