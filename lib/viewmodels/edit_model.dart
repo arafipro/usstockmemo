@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MarketListModel extends ChangeNotifier {
+class EditModel extends ChangeNotifier {
   List<String> markets = ["NYSE", "NASDAQ"];
   String dropdownValue = "NYSE";
 
