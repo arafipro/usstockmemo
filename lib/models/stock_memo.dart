@@ -1,5 +1,5 @@
 // メモモデル
-class Memo {
+class StockMemo {
   int id;
   String name;          // 銘柄名
   String ticker;        // ティッカー
@@ -7,8 +7,8 @@ class Memo {
   String memo;          // メモ
   DateTime recordedAt;  // 記録日時
 
-  Memo(this.name, this.ticker, this.market, this.memo, this.recordedAt);
-  Memo.withId(this.id, this.name, this.ticker, this.market, this.memo, this.recordedAt);
+  StockMemo(this.name, this.ticker, this.market, this.memo, this.recordedAt);
+  StockMemo.withId(this.id, this.name, this.ticker, this.market, this.memo, this.recordedAt);
 
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
@@ -24,7 +24,7 @@ class Memo {
     return map;
   }
 
-  Memo.fromMapObject(Map<String, dynamic> map) {
+  StockMemo.fromMapObject(Map<String, dynamic> map) {
     this.id = map['id'];
     this.name = map['name'];
     this.ticker = map['ticker'];

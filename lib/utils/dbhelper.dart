@@ -2,7 +2,7 @@ import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'package:usstockmemo/models/memo.dart';
+import 'package:usstockmemo/models/stock_memo.dart';
 
 class DatabaseHelper {
   static DatabaseHelper _databaseHelper; // Singleton DatabaseHelper
@@ -61,14 +61,14 @@ class DatabaseHelper {
   }
 
   // Insert Operation: Insert a Memo object to database
-  Future<int> insertMemo(Memo memo) async {
+  Future<int> insertMemo(StockMemo memo) async {
     Database db = await this.database;
     var result = await db.insert(memoTable, memo.toMap());
     return result;
   }
 
   // Update Operation: Update a Memo object and save it to database
-  Future<int> updateMemo(Memo memo) async {
+  Future<int> updateMemo(StockMemo memo) async {
     var db = await this.database;
     var result = await db.update(memoTable, memo.toMap(),
         where: '$colId = ?', whereArgs: [memo.id]);
@@ -85,15 +85,15 @@ class DatabaseHelper {
   }
 
   // Get the 'Map List' [ List<Map> ] and convert it to 'Memo List' [ List<Dog> ]
-  Future<List<Memo>> getMemoList() async {
+  Future<List<StockMemo>> getMemoList() async {
     var memoMapList = await getMemoMapList(); // Get 'Map List' from database
     int count =
         memoMapList.length; // Count the number of map entries in db table
 
-    List<Memo> memoList = List<Memo>();
+    List<StockMemo> memoList = List<StockMemo>();
     // For loop to create a 'Memo List' from a 'Map List'
     for (int i = 0; i < count; i++) {
-      memoList.add(Memo.fromMapObject(memoMapList[i]));
+      memoList.add(StockMemo.fromMapObject(memoMapList[i]));
     }
 
     return memoList;
