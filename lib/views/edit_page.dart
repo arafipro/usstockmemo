@@ -1,39 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:usstockmemo/components/tf.dart';
+import 'package:usstockmemo/models/stock_memo.dart';
 import 'package:usstockmemo/viewmodels/market_list_model.dart';
 
 class EditPage extends StatelessWidget {
+  EditPage({this.stockmemo});
+  final StockMemo stockmemo;
+
   @override
   Widget build(BuildContext context) {
+    final bool isUpdate = stockmemo != null;
+    final nameController = TextEditingController();
+    final tickerController = TextEditingController();
+    final marketController = TextEditingController();
+    final memoController = TextEditingController();
+
+    if (isUpdate) {
+      nameController.text = stockmemo.name;
+      tickerController.text = stockmemo.ticker;
+      marketController.text = stockmemo.market;
+      memoController.text = stockmemo.memo;
+    }
+
     return ChangeNotifierProvider<MarketListModel>(
       create: (_) => MarketListModel(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('US Stock Memo Edit'),
+          title: Text(isUpdate ? '編集' : '追加'),
         ),
         body: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Stock Name',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                ),
-              ),
+            TF(
+              controller: nameController,
+              labelText: 'Stock Name',
+              onChanged: (text) {
+                print(text);
+              },
             ),
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Ticker',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                ),
-              ),
+            TF(
+              controller: tickerController,
+              labelText: 'Ticker',
+              onChanged: (text) {
+                print(text);
+              },
             ),
             SizedBox(
               height: 8,
@@ -51,36 +61,34 @@ class EditPage extends StatelessWidget {
                 Consumer<MarketListModel>(
                   builder: (context, model, child) {
                     return ListTile(
-                        subtitle: DropdownButton<String>(
-                      underline: Container(
-                        height: 1,
-                        color: Colors.black26,
+                      subtitle: DropdownButton<String>(
+                        underline: Container(
+                          height: 1,
+                          color: Colors.black26,
+                        ),
+                        value: model.dropdownValue,
+                        onChanged: model.onChanged,
+                        items: model.markets.map<DropdownMenuItem<String>>(
+                          (String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          },
+                        ).toList(),
                       ),
-                      value: model.dropdownValue,
-                      onChanged: model.onChanged,
-                      items: model.markets
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ));
+                    );
                   },
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: TextFormField(
-                maxLines: 10,
-                decoration: InputDecoration(
-                  labelText: 'Attention',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                ),
-              ),
+            TF(
+              controller: nameController,
+              maxLines: 10,
+              labelText: 'Memo',
+              onChanged: (text) {
+                print(text);
+              },
             ),
             Padding(
               padding: const EdgeInsets.all(4.0),
