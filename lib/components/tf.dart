@@ -7,12 +7,14 @@ class TF extends StatelessWidget {
     this.labelText,
     this.maxLines,
     this.onChanged,
+    this.validator,
   });
 
   final TextEditingController controller;
   final String labelText;
   final int maxLines;
   final onChanged;
+  final validator;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class TF extends StatelessWidget {
           ),
         ),
         onChanged: onChanged,
+        validator: validator,
       ),
     );
   }
