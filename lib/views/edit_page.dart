@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:usstockmemo/components/tf.dart';
 import 'package:usstockmemo/models/stock_memo.dart';
-import 'package:usstockmemo/viewmodels/market_list_model.dart';
+import 'package:usstockmemo/viewmodels/edit_model.dart';
 
 class EditPage extends StatelessWidget {
   EditPage({this.stockmemo});
@@ -23,44 +23,49 @@ class EditPage extends StatelessWidget {
       memoController.text = stockmemo.memo;
     }
 
-    return ChangeNotifierProvider<MarketListModel>(
-      create: (_) => MarketListModel(),
+    return ChangeNotifierProvider<EditModel>(
+      create: (_) => EditModel(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(isUpdate ? '編集' : '追加'),
+          title: Text(isUpdate ? 'Edit' : 'New'),
         ),
-        body: ListView(
-          children: [
-            TF(
-              controller: nameController,
-              labelText: 'Stock Name',
-              onChanged: (text) {
-                print(text);
-              },
-            ),
-            TF(
-              controller: tickerController,
-              labelText: 'Ticker',
-              onChanged: (text) {
-                print(text);
-              },
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+        body: Consumer<EditModel>(
+          builder: (context, model, child) {
+            return ListView(
               children: [
-                Text(
-                  'Market',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300,
-                  ),
+                TF(
+                  controller: nameController,
+                  labelText: 'Stock Name',
+                  maxLines: 1,
+                  validator: (String text) {
+                    return text.isEmpty ? 'must in' : null;
+                  },
+                  onChanged: (text) {
+                    model.stockName = text;
+                  },
                 ),
-                Consumer<MarketListModel>(
-                  builder: (context, model, child) {
-                    return ListTile(
+                TF(
+                  controller: tickerController,
+                  labelText: 'Ticker',
+                  maxLines: 1,
+                  onChanged: (text) {
+                    model.stockTicker = text;
+                  },
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Market',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    ListTile(
                       subtitle: DropdownButton<String>(
                         underline: Container(
                           height: 1,
@@ -77,38 +82,82 @@ class EditPage extends StatelessWidget {
                           },
                         ).toList(),
                       ),
-                    );
+                    ),
+                  ],
+                ),
+                TF(
+                  controller: memoController,
+                  maxLines: 10,
+                  labelText: 'Memo',
+                  onChanged: (text) {
+                    model.stockMemo = text;
                   },
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: RaisedButton(
+                    color: Colors.blue,
+                    textColor: Colors.white,
+                    child: Text(
+                      isUpdate ? 'Edited' : 'Saved',
+                      textScaleFactor: 1.5,
+                    ),
+                    onPressed: () async {
+                      model.startLoading();
+                      if (isUpdate) {
+                        // await updateDog(model, context);
+                      } else {
+                        await addMemo(model, context);
+                      }
+                      model.endLoading();
+                    },
+                  ),
                 ),
               ],
-            ),
-            TF(
-              controller: nameController,
-              maxLines: 10,
-              labelText: 'Memo',
-              onChanged: (text) {
-                print(text);
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Expanded(
-                child: RaisedButton(
-                  color: Theme.of(context).primaryColorDark,
-                  textColor: Theme.of(context).primaryColorLight,
-                  child: Text(
-                    'save',
-                    textScaleFactor: 1.5,
-                  ),
-                  onPressed: () {
-                    print('save');
-                  },
-                ),
-              ),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );
+  }
+
+  Future addMemo(EditModel model, BuildContext context) async {
+    try {
+      await model.addMemo();
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('保存しました！'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      Navigator.of(context).pop();
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(e.toString()),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }
