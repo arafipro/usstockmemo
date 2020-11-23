@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:usstockmemo/models/stock_memo.dart';
 import 'package:usstockmemo/viewmodels/list_model.dart';
 import 'package:usstockmemo/views/edit_page.dart';
 
@@ -17,27 +18,52 @@ class ListPage extends StatelessWidget {
             final memos = model.memos;
             final listTiles = memos
                 .map(
-                  (memos) => ListTile(
-                    title: Text(memos.name),
-                    subtitle: Text(memos.market),
+                  (memo) => ListTile(
+                    title: Text(memo.name),
+                    subtitle: Text(memo.market),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        IconButton(icon: Icon(Icons.edit),                       onPressed: () async {
-                        // todo: 画面遷移
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => EditPage(
-                              stockmemo: memos,
-                            ),
-                            fullscreenDialog: true,
-                          ),
-                        );
-                        model.fetchMemos();
-                      },
-),
-                        IconButton(icon: Icon(Icons.delete), onPressed: () {}),
+                        IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () async {
+                            // todo: 画面遷移
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditPage(
+                                  stockmemo: memo,
+                                ),
+                                fullscreenDialog: true,
+                              ),
+                            );
+                            model.fetchMemos();
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () async {
+                            // todo: 削除
+                            await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('${memo.name}を削除しますか？'),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text('OK'),
+                                      onPressed: () async {
+                                        Navigator.of(context).pop();
+                                        // todo: 削除のAPIを叩く
+                                        await deleteMemo(context, model, memo);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -49,6 +75,36 @@ class ListPage extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+  Future deleteMemo(BuildContext context, ListModel model, StockMemo memo) async {
+    try {
+      await model.deleteMemo(memo);
+      await _showDialog(context, '削除しました');
+      await model.fetchMemos();
+  } catch (e) {
+      await _showDialog(context, e.toString());
+      print(e.toString());
+    }
+  }
+
+  Future _showDialog(BuildContext context, String title) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
