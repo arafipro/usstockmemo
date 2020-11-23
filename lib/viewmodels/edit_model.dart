@@ -41,4 +41,40 @@ class EditModel extends ChangeNotifier {
     );
     await dbhelp.insertMemo(newMemo);
   }
+
+  Future updateMemo(StockMemo memo) async {
+    // if (memoName.isEmpty && memoAge.isEmpty) {
+    //   throw ('変更なし');
+    // }
+
+    // stockNameが変更されない場合は元の値を代入
+    stockName.isEmpty ? stockName = memo.name : null;
+
+    // stockTickerが変更されない場合は元の値を代入
+    stockTicker.isEmpty ? stockTicker = memo.ticker : null;
+
+    // stockMarketが変更されない場合は元の値を代入
+    stockMarket.isEmpty ? stockMarket = memo.market : null;
+
+    // stockMemoが変更されない場合は元の値を代入
+    stockMemo.isEmpty ? stockMemo = memo.memo : null;
+
+    // print('changed name:$memoName'); // 変更後の値
+    // print('changed age:$memoAge'); // 変更後の値
+    // print('id:${memo.id}');
+    StockMemo changeMemo = StockMemo.withId(
+      memo.id,
+      stockName,
+      stockTicker,
+      stockMarket,
+      stockMemo,
+    );
+
+    if (memo.id != null) {
+      final document = await dbhelp.updateMemo(changeMemo);
+      print(document);
+    } else {
+      throw ('IDなし');
+    }
+  }
 }

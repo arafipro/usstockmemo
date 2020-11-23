@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:usstockmemo/viewmodels/list_model.dart';
+import 'package:usstockmemo/views/edit_page.dart';
 
 class ListPage extends StatelessWidget {
   @override
@@ -22,7 +23,20 @@ class ListPage extends StatelessWidget {
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        IconButton(icon: Icon(Icons.edit), onPressed: () {}),
+                        IconButton(icon: Icon(Icons.edit),                       onPressed: () async {
+                        // todo: 画面遷移
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditPage(
+                              stockmemo: memos,
+                            ),
+                            fullscreenDialog: true,
+                          ),
+                        );
+                        model.fetchMemos();
+                      },
+),
                         IconButton(icon: Icon(Icons.delete), onPressed: () {}),
                       ],
                     ),
