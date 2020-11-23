@@ -14,7 +14,7 @@ class DatabaseHelper {
   String colTicker = 'ticker';          // ティッカー
   String colmarket = 'market';          // 市場
   String colMemo = 'memo';              // メモ
-  String colRecordedAt = 'recordedAt';  // 記録日時
+  // String colRecordedAt = 'recordedAt';  // 記録日時
 
   DatabaseHelper._createInstance();
   // Named constructor to create instance of DatabaseHelper(DatabaseHelperのインスタンスを作成するための名前付きコンストラクター)
@@ -40,23 +40,25 @@ class DatabaseHelper {
     String path = directory.path + 'stockmemos.db';
 
     // Open/create the database at a given path
-    var dogsDatabase =
+    var memosDatabase =
         await openDatabase(path, version: 1, onCreate: _createDb);
-    return dogsDatabase;
+    return memosDatabase;
   }
 
   void _createDb(Database db, int newVersion) async {
     // sql文は大文字ではなく小文字で記述しないとエラーになるよう（なぜかはわからない）
     await db.execute(
       """create table $memoTable($colId integer primary key autoincrement, $colName text,
-          $colTicker text, $colmarket text, $colMemo text, $colRecordedAt datetime)""");
+          $colTicker text, $colmarket text, $colMemo text)""");
+          // $colTicker text, $colmarket text, $colMemo text, $colRecordedAt datetime)""");
   }
 
   // Fetch Operation: Get all Memo objects from database
   Future<List<Map<String, dynamic>>> getMemoMapList() async {
     Database db = await this.database;
     var result =
-        await db.rawQuery('select * from $memoTable order by $colRecordedAt asc');
+        // await db.rawQuery('select * from $memoTable order by $colRecordedAt asc');
+        await db.rawQuery('select * from $memoTable');
     return result;
   }
 

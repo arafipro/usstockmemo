@@ -5,10 +5,12 @@ class StockMemo {
   String ticker;        // ティッカー
   String market;        // 市場
   String memo;          // メモ
-  DateTime recordedAt;  // 記録日時
+  // DateTime recordedAt;  // 記録日時
 
-  StockMemo(this.name, this.ticker, this.market, this.memo, this.recordedAt);
-  StockMemo.withId(this.id, this.name, this.ticker, this.market, this.memo, this.recordedAt);
+  // StockMemo(this.name, this.ticker, this.market, this.memo, this.recordedAt);
+  // StockMemo.withId(this.id, this.name, this.ticker, this.market, this.memo, this.recordedAt);
+  StockMemo(this.name, this.ticker, this.market, this.memo);
+  StockMemo.withId(this.id, this.name, this.ticker, this.market, this.memo);
 
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
@@ -19,7 +21,7 @@ class StockMemo {
     map['ticker'] = ticker;
     map['market'] = market;
     map['memo'] = memo;
-    map['recordedAt'] = recordedAt;
+    // map['recordedAt'] = recordedAt;
 
     return map;
   }
@@ -30,6 +32,6 @@ class StockMemo {
     this.ticker = map['ticker'];
     this.market = map['market'];
     this.memo = map['memo'];
-    this.recordedAt = map['recordedAt'];
+    // this.recordedAt = map['recordedAt'];
   }
 }
