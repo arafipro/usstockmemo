@@ -37,9 +37,6 @@ class EditPage extends StatelessWidget {
                   controller: nameController,
                   labelText: 'Stock Name',
                   maxLines: 1,
-                  validator: (String text) {
-                    return text.isEmpty ? 'must in' : null;
-                  },
                   onChanged: (text) {
                     model.stockName = text;
                   },
@@ -128,7 +125,7 @@ class EditPage extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('保存しました！'),
+            title: Text('Saved'),
             actions: <Widget>[
               FlatButton(
                 child: Text('OK'),
@@ -168,7 +165,7 @@ class EditPage extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('更新しました！'),
+            title: Text('Updated'),
             actions: <Widget>[
               FlatButton(
                 child: Text('OK'),

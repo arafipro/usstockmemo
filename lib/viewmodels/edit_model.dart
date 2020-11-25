@@ -32,6 +32,11 @@ class EditModel extends ChangeNotifier {
   }
 
   Future addMemo() async {
+    // 入力チェック
+    stockName.isEmpty ? throw ('Please input Stock Name') : null;
+    stockTicker.isEmpty ? throw ('Please input Ticker') : null;
+    stockMemo.isEmpty ? throw ('Please input Memo') : null;
+
     StockMemo newMemo = StockMemo(
       stockName,
       stockTicker,
