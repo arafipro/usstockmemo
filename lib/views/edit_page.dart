@@ -7,6 +7,7 @@ import 'package:usstockmemo/viewmodels/edit_model.dart';
 class EditPage extends StatelessWidget {
   EditPage({this.stockmemo});
   final StockMemo stockmemo;
+  final _key = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -31,86 +32,109 @@ class EditPage extends StatelessWidget {
         ),
         body: Consumer<EditModel>(
           builder: (context, model, child) {
-            return ListView(
-              children: [
-                TF(
-                  controller: nameController,
-                  labelText: 'Stock Name',
-                  maxLines: 1,
-                  onChanged: (text) {
-                    model.stockName = text;
-                  },
-                ),
-                TF(
-                  controller: tickerController,
-                  labelText: 'Ticker',
-                  maxLines: 1,
-                  onChanged: (text) {
-                    model.stockTicker = text;
-                  },
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Market',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    ListTile(
-                      subtitle: DropdownButton<String>(
-                        underline: Container(
-                          height: 1,
-                          color: Colors.black26,
-                        ),
-                        value: model.dropdownValue,
-                        onChanged: model.onChanged,
-                        items: model.markets.map<DropdownMenuItem<String>>(
-                          (String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          },
-                        ).toList(),
-                      ),
-                    ),
-                  ],
-                ),
-                TF(
-                  controller: memoController,
-                  maxLines: 10,
-                  labelText: 'Memo',
-                  onChanged: (text) {
-                    model.stockMemo = text;
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: RaisedButton(
-                    color: Colors.blue,
-                    textColor: Colors.white,
-                    child: Text(
-                      isUpdate ? 'Edited' : 'Saved',
-                      textScaleFactor: 1.5,
-                    ),
-                    onPressed: () async {
-                      model.startLoading();
-                      if (isUpdate) {
-                        await updateMemo(model, context);
+            return Form(
+              key: _key,
+              child: ListView(
+                children: [
+                  TF(
+                    controller: nameController,
+                    labelText: 'Stock Name',
+                    maxLines: 1,
+                    onChanged: (text) {
+                      model.stockName = text;
+                    },
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please input Stock Name';
                       } else {
-                        await addMemo(model, context);
+                        return null;
                       }
-                      model.endLoading();
                     },
                   ),
-                ),
-              ],
+                  TF(
+                    controller: tickerController,
+                    labelText: 'Ticker',
+                    maxLines: 1,
+                    maxLength: 5,
+                    onChanged: (text) {
+                      model.stockTicker = text;
+                    },
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please input Ticker';
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Market',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                      ListTile(
+                        subtitle: DropdownButton<String>(
+                          underline: Container(
+                            height: 1,
+                            color: Colors.black26,
+                          ),
+                          value: model.dropdownValue,
+                          onChanged: model.onChanged,
+                          items: model.markets.map<DropdownMenuItem<String>>(
+                            (String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            },
+                          ).toList(),
+                        ),
+                      ),
+                    ],
+                  ),
+                  TF(
+                    controller: memoController,
+                    maxLines: 10,
+                    labelText: 'Memo',
+                    onChanged: (text) {
+                      model.stockMemo = text;
+                    },
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please input Memo';
+                      }
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: RaisedButton(
+                      color: Colors.blue,
+                      textColor: Colors.white,
+                      child: Text(
+                        isUpdate ? 'Edited' : 'Saved',
+                        textScaleFactor: 1.5,
+                      ),
+                      onPressed: () async {
+                        model.startLoading();
+                        if (_key.currentState.validate()) {
+                          if (isUpdate) {
+                            await updateMemo(model, context);
+                          } else {
+                            await addMemo(model, context);
+                          }
+                        }
+                        model.endLoading();
+                      },
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         ),
