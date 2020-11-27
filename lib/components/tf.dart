@@ -7,12 +7,14 @@ class TF extends StatelessWidget {
     this.labelText,
     this.maxLines,
     this.onChanged,
+    this.maxLength,
     this.validator,
   });
 
   final TextEditingController controller;
   final String labelText;
   final int maxLines;
+  final int maxLength;
   final onChanged;
   final validator;
 
@@ -23,6 +25,7 @@ class TF extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         maxLines: maxLines,
+        maxLength: maxLength,
         decoration: InputDecoration(
           labelText: labelText,
           border: OutlineInputBorder(
