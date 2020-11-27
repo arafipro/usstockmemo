@@ -17,7 +17,6 @@ class EditModel extends ChangeNotifier {
 
   onChanged(String newValue) {
     stockMarket = dropdownValue = newValue;
-    // print(dropdownValue);
     notifyListeners();
   }
 
@@ -32,16 +31,6 @@ class EditModel extends ChangeNotifier {
   }
 
   Future addMemo() async {
-    // 入力チェック
-    // if (stockName.isEmpty) {
-    //   throw ('Please input Stock Name');
-    // }
-    // if (stockTicker.isEmpty) {
-    //   throw ('Please input Ticker');
-    // }
-    // if (stockMemo.isEmpty) {
-    //   throw ('Please input Memo');
-    // }
     StockMemo newMemo = StockMemo(
       stockName,
       stockTicker,
@@ -53,25 +42,23 @@ class EditModel extends ChangeNotifier {
   }
 
   Future updateMemo(StockMemo memo) async {
-    // if (memoName.isEmpty && memoAge.isEmpty) {
-    //   throw ('変更なし');
-    // }
-
     // stockNameが変更されない場合は元の値を代入
-    stockName.isEmpty ? stockName = memo.name : null;
-
+    if (stockName.isEmpty) {
+      stockName = memo.name;
+    }
     // stockTickerが変更されない場合は元の値を代入
-    stockTicker.isEmpty ? stockTicker = memo.ticker : null;
-
+    if (stockTicker.isEmpty) {
+      stockTicker = memo.ticker;
+    }
     // stockMarketが変更されない場合は元の値を代入
-    stockMarket.isEmpty ? stockMarket = memo.market : null;
-
+    if (stockMarket.isEmpty) {
+      stockMarket = memo.market;
+    }
     // stockMemoが変更されない場合は元の値を代入
-    stockMemo.isEmpty ? stockMemo = memo.memo : null;
+    if (stockMemo.isEmpty) {
+      stockMemo = memo.memo;
+    }
 
-    // print('changed name:$memoName'); // 変更後の値
-    // print('changed age:$memoAge'); // 変更後の値
-    // print('id:${memo.id}');
     StockMemo changeMemo = StockMemo.withId(
       memo.id,
       stockName,
