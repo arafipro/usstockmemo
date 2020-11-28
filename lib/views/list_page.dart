@@ -19,7 +19,13 @@ class ListPage extends StatelessWidget {
             final listTiles = memos
                 .map(
                   (memo) => ListTile(
-                    title: Text(memo.name),
+                    title: Row(
+                      children: [
+                        Text(memo.name),
+                        SizedBox(width: 8,),
+                        Text('(' + memo.ticker.toUpperCase() + ')'),
+                      ],
+                    ),
                     subtitle: Text(memo.market),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
