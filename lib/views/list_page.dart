@@ -26,7 +26,7 @@ class ListPage extends StatelessWidget {
                         Text('(' + memo.ticker.toUpperCase() + ')'),
                       ],
                     ),
-                    subtitle: Text(memo.market),
+                    subtitle: Text(memo.market.toUpperCase()),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

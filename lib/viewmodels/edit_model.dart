@@ -3,9 +3,6 @@ import 'package:usstockmemo/models/stock_memo.dart';
 import 'package:usstockmemo/utils/dbhelper.dart';
 
 class EditModel extends ChangeNotifier {
-  List<String> markets = ["NYSE", "NASDAQ"];
-  String dropdownValue = "NYSE";
-
   String stockName = '';
   String stockTicker = '';
   String stockMarket = 'NYSE';
@@ -14,11 +11,6 @@ class EditModel extends ChangeNotifier {
   bool isLoading = false;
 
   final dbhelp = DatabaseHelper();
-
-  onChanged(String newValue) {
-    stockMarket = dropdownValue = newValue;
-    notifyListeners();
-  }
 
   startLoading() {
     isLoading = true;

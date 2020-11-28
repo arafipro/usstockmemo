@@ -65,38 +65,18 @@ class EditPage extends StatelessWidget {
                       }
                     },
                   ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Market',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                      ListTile(
-                        subtitle: DropdownButton<String>(
-                          underline: Container(
-                            height: 1,
-                            color: Colors.black26,
-                          ),
-                          value: model.dropdownValue,
-                          onChanged: model.onChanged,
-                          items: model.markets.map<DropdownMenuItem<String>>(
-                            (String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            },
-                          ).toList(),
-                        ),
-                      ),
-                    ],
+                  TF(
+                    controller: marketController,
+                    labelText: 'Market',
+                    maxLines: 1,
+                    onChanged: (text) {
+                      model.stockMarket = text;
+                    },
+                    validator: (value) {
+                      if (!RegExp(r"^[nN][yY][sS][eE]").hasMatch(value) && !RegExp(r"^[nN][aA][sS][dD][aA][qQ]").hasMatch(value)) {
+                        return 'Please input NYSE or NASDAQ';
+                      }
+                    },
                   ),
                   TF(
                     controller: memoController,
