@@ -27,7 +27,6 @@ class ListPage extends StatelessWidget {
                         IconButton(
                           icon: Icon(Icons.edit),
                           onPressed: () async {
-                            // todo: 画面遷移
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -43,18 +42,16 @@ class ListPage extends StatelessWidget {
                         IconButton(
                           icon: Icon(Icons.delete),
                           onPressed: () async {
-                            // todo: 削除
                             await showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: Text('${memo.name}を削除しますか？'),
+                                  title: Text('Delete ${memo.name}？'),
                                   actions: <Widget>[
                                     FlatButton(
                                       child: Text('OK'),
                                       onPressed: () async {
                                         Navigator.of(context).pop();
-                                        // todo: 削除のAPIを叩く
                                         await deleteMemo(context, model, memo);
                                       },
                                     ),
@@ -74,16 +71,34 @@ class ListPage extends StatelessWidget {
             );
           },
         ),
+        floatingActionButton: Consumer<ListModel>(
+          builder: (context, model, child) {
+            return FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditPage(),
+                    fullscreenDialog: true,
+                  ),
+                );
+                model.fetchMemos();
+              },
+            );
+          },
+        ),
       ),
     );
   }
 
-  Future deleteMemo(BuildContext context, ListModel model, StockMemo memo) async {
+  Future deleteMemo(
+      BuildContext context, ListModel model, StockMemo memo) async {
     try {
       await model.deleteMemo(memo);
-      await _showDialog(context, '削除しました');
+      await _showDialog(context, 'Deleted');
       await model.fetchMemos();
-  } catch (e) {
+    } catch (e) {
       await _showDialog(context, e.toString());
       print(e.toString());
     }
