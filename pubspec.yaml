@@ -18,6 +18,8 @@ dependencies:
   path: ^1.7.0
   path_provider: ^1.6.24
 
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:

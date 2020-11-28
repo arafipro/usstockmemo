@@ -28,7 +28,7 @@ class EditPage extends StatelessWidget {
       create: (_) => EditModel(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(isUpdate ? 'Edit' : 'New'),
+          title: Text(isUpdate ? '米国株メモ帳 - 編集' : '米国株メモ帳 - 新規登録'),
         ),
         body: Consumer<EditModel>(
           builder: (context, model, child) {
@@ -37,15 +37,16 @@ class EditPage extends StatelessWidget {
               child: ListView(
                 children: [
                   TF(
+                    keyboardType: TextInputType.phone,
                     controller: nameController,
-                    labelText: 'Stock Name',
+                    labelText: '銘柄名',
                     maxLines: 1,
                     onChanged: (text) {
                       model.stockName = text;
                     },
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please input Stock Name';
+                        return '銘柄名を入力してください';
                       } else {
                         return null;
                       }
@@ -53,7 +54,7 @@ class EditPage extends StatelessWidget {
                   ),
                   TF(
                     controller: tickerController,
-                    labelText: 'Ticker',
+                    labelText: 'ティッカー',
                     maxLines: 1,
                     maxLength: 5,
                     onChanged: (text) {
@@ -61,33 +62,33 @@ class EditPage extends StatelessWidget {
                     },
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please input Ticker';
+                        return 'ティッカーを入力してください';
                       }
                     },
                   ),
                   TF(
                     controller: marketController,
-                    labelText: 'Market',
+                    labelText: '市場',
                     maxLines: 1,
                     onChanged: (text) {
                       model.stockMarket = text;
                     },
                     validator: (value) {
                       if (!RegExp(r"^[nN][yY][sS][eE]").hasMatch(value) && !RegExp(r"^[nN][aA][sS][dD][aA][qQ]").hasMatch(value)) {
-                        return 'Please input NYSE or NASDAQ';
+                        return 'NYSEまたはNASDAQのいずれかを入力してください';
                       }
                     },
                   ),
                   TF(
                     controller: memoController,
                     maxLines: 10,
-                    labelText: 'Memo',
+                    labelText: 'メモ',
                     onChanged: (text) {
                       model.stockMemo = text;
                     },
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please input Memo';
+                        return 'メモを入力してください';
                       }
                     },
                   ),
@@ -97,7 +98,7 @@ class EditPage extends StatelessWidget {
                       color: Colors.blue,
                       textColor: Colors.white,
                       child: Text(
-                        isUpdate ? 'Edited' : 'Saved',
+                        isUpdate ? '編集完了' : '保存',
                         textScaleFactor: 1.5,
                       ),
                       onPressed: () async {
@@ -129,7 +130,7 @@ class EditPage extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Saved'),
+            title: Text('保存しました'),
             actions: <Widget>[
               FlatButton(
                 child: Text('OK'),
@@ -169,7 +170,7 @@ class EditPage extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Updated'),
+            title: Text('変更しました'),
             actions: <Widget>[
               FlatButton(
                 child: Text('OK'),

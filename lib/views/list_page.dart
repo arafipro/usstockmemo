@@ -11,7 +11,7 @@ class ListPage extends StatelessWidget {
       create: (_) => ListModel()..fetchMemos(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('US Stock Memo List'),
+          title: Text('米国株メモ帳'),
         ),
         body: Consumer<ListModel>(
           builder: (context, model, child) {
@@ -52,7 +52,7 @@ class ListPage extends StatelessWidget {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: Text('Delete ${memo.name}？'),
+                                  title: Text('${memo.name}を削除しますか？'),
                                   actions: <Widget>[
                                     FlatButton(
                                       child: Text('OK'),
@@ -102,7 +102,7 @@ class ListPage extends StatelessWidget {
       BuildContext context, ListModel model, StockMemo memo) async {
     try {
       await model.deleteMemo(memo);
-      await _showDialog(context, 'Deleted');
+      await _showDialog(context, '削除しました');
       await model.fetchMemos();
     } catch (e) {
       await _showDialog(context, e.toString());

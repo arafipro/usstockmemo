@@ -9,6 +9,7 @@ class TF extends StatelessWidget {
     this.onChanged,
     this.maxLength,
     this.validator,
+    this.keyboardType
   });
 
   final TextEditingController controller;
@@ -17,6 +18,7 @@ class TF extends StatelessWidget {
   final int maxLength;
   final onChanged;
   final validator;
+  final keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class TF extends StatelessWidget {
         controller: controller,
         maxLines: maxLines,
         maxLength: maxLength,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
           labelText: labelText,
           border: OutlineInputBorder(
