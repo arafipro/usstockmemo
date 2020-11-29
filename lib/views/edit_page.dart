@@ -37,7 +37,6 @@ class EditPage extends StatelessWidget {
               child: ListView(
                 children: [
                   TF(
-                    keyboardType: TextInputType.phone,
                     controller: nameController,
                     labelText: '銘柄名',
                     maxLines: 1,
