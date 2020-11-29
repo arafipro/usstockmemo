@@ -10,9 +10,6 @@ class ListPage extends StatelessWidget {
     return ChangeNotifierProvider<ListModel>(
       create: (_) => ListModel()..fetchMemos(),
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('米国株メモ帳'),
-        ),
         body: Consumer<ListModel>(
           builder: (context, model, child) {
             final memos = model.memos;

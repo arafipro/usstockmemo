@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:usstockmemo/components/adbanner.dart';
 import 'package:usstockmemo/components/tf.dart';
 import 'package:usstockmemo/models/stock_memo.dart';
 import 'package:usstockmemo/viewmodels/edit_model.dart';
@@ -36,6 +37,7 @@ class EditPage extends StatelessWidget {
               key: _key,
               child: ListView(
                 children: [
+                  AdBanner(),
                   TF(
                     controller: nameController,
                     labelText: '銘柄名',

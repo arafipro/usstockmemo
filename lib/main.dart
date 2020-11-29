@@ -1,8 +1,14 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:usstockmemo/components/adbanner.dart';
 import 'package:usstockmemo/views/list_page.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Admob.initialize();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -17,7 +23,17 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         Locale('ja', ''), // Japanese
       ],
-      home: ListPage(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('米国株メモ帳'),
+        ),
+        body: Column(
+          children: [
+            AdBanner(),
+            Expanded(child: ListPage()),
+          ],
+        ),
+      ),
     );
   }
 }
