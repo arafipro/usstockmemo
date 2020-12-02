@@ -75,7 +75,9 @@ class EditPage extends StatelessWidget {
                       model.stockMarket = text;
                     },
                     validator: (value) {
-                      if (!RegExp(r"^[nN][yY][sS][eE]").hasMatch(value) && !RegExp(r"^[nN][aA][sS][dD][aA][qQ]").hasMatch(value)) {
+                      if (!RegExp(r"^[nN][yY][sS][eE]").hasMatch(value) &&
+                          !RegExp(r"^[nN][aA][sS][dD][aA][qQ]")
+                              .hasMatch(value)) {
                         return 'NYSEまたはNASDAQのいずれかを入力してください';
                       }
                     },

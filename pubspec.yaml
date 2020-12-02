@@ -19,11 +19,11 @@ dependencies:
   path_provider: ^1.6.24
   admob_flutter: ^1.0.1
 
-  flutter_localizations:
-    sdk: flutter
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
 flutter:
   uses-material-design: true
