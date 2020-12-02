@@ -17,21 +17,25 @@ class TopPage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => EditPage()),
+                  MaterialPageRoute(
+                    builder: (context) => EditPage(),
+                  ),
                 );
-              }
+              },
             ),
             RaisedButton(
               child: Text('Stock List'),
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ListPage()),
+                  MaterialPageRoute(
+                    builder: (context) => ListPage(),
+                  ),
                 );
-              }
+              },
             ),
           ],
-        )
+        ),
       ),
     );
   }

@@ -9,7 +9,7 @@ class TF extends StatelessWidget {
     this.onChanged,
     this.maxLength,
     this.validator,
-    this.keyboardType
+    this.keyboardType,
   });
 
   final TextEditingController controller;

@@ -18,9 +18,15 @@ class ListPage extends StatelessWidget {
                   (memo) => ListTile(
                     title: Row(
                       children: [
-                        Text(memo.name),
-                        SizedBox(width: 8,),
-                        Text('(' + memo.ticker.toUpperCase() + ')'),
+                        Text(
+                          memo.name,
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          '(' + memo.ticker.toUpperCase() + ')',
+                        ),
                       ],
                     ),
                     subtitle: Text(memo.market.toUpperCase()),

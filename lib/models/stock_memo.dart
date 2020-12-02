@@ -1,10 +1,10 @@
 // メモモデル
 class StockMemo {
   int id;
-  String name;          // 銘柄名
-  String ticker;        // ティッカー
-  String market;        // 市場
-  String memo;          // メモ
+  String name; // 銘柄名
+  String ticker; // ティッカー
+  String market; // 市場
+  String memo; // メモ
   // DateTime recordedAt;  // 記録日時
 
   // StockMemo(this.name, this.ticker, this.market, this.memo, this.recordedAt);
