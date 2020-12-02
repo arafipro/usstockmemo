@@ -1,4 +1,5 @@
 import 'package:admob_flutter/admob_flutter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:usstockmemo/components/adbanner.dart';
@@ -19,9 +20,11 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        DefaultCupertinoLocalizations.delegate,
       ],
       supportedLocales: [
-        Locale('ja', ''), // Japanese
+        Locale('ja', 'JP'), // Japanese
       ],
       home: Scaffold(
         appBar: AppBar(
