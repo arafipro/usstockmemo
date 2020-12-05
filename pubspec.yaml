@@ -24,6 +24,12 @@ dev_dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  flutter_launcher_icons: ^0.8.1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/icon.png"
 
 flutter:
   uses-material-design: true
