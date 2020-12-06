@@ -25,6 +25,7 @@ class TF extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: TextFormField(
+        autofocus: true,
         controller: controller,
         maxLines: maxLines,
         maxLength: maxLength,
