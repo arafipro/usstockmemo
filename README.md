@@ -1,16 +1,20 @@
-# usstockmemo
+# 米国株投資メモ(USStockMemo)
 
-A new Flutter project.
+### 基本機能
 
-## Getting Started
+- 銘柄名
+- ティッカー
+- 市場(NYSE,NASDAQ)
+- メモ
 
-This project is a starting point for a Flutter application.
+上記４項目を新規保存、編集、削除ができます。
+### 今後の機能追加・変更予定
 
-A few resources to get you started if this is your first Flutter project:
+- 新規保存と編集の日時を記録できるようにする。
+- 市場をドロップダウンで選択できるようにする(新規保存や編集は可能だがドロップダウンが変更に反映されない)。
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### アプリ更新履歴
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+|バージョン|更新日|概要|
+|:-:|:-:|:-:|
+|v1.0.0|2020/12/5|リリース|
