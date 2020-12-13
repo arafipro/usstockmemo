@@ -15,62 +15,65 @@ class ListPage extends StatelessWidget {
             final memos = model.memos;
             final listTiles = memos
                 .map(
-                  (memo) => ListTile(
-                    title: Row(
-                      children: [
-                        Text(
-                          memo.name,
-                        ),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Text(
-                          '(' + memo.ticker.toUpperCase() + ')',
-                        ),
-                      ],
-                    ),
-                    subtitle: Text(memo.market.toUpperCase()),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditPage(
-                                  stockmemo: memo,
+                  (memo) => Card(
+                    child: ListTile(
+                      title: Row(
+                        children: [
+                          Text(
+                            memo.name,
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Text(
+                            '(' + memo.ticker.toUpperCase() + ')',
+                          ),
+                        ],
+                      ),
+                      subtitle: Text(memo.market.toUpperCase()),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.edit),
+                            onPressed: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EditPage(
+                                    stockmemo: memo,
+                                  ),
+                                  fullscreenDialog: true,
                                 ),
-                                fullscreenDialog: true,
-                              ),
-                            );
-                            model.fetchMemos();
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () async {
-                            await showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text('${memo.name}を削除しますか？'),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text('OK'),
-                                      onPressed: () async {
-                                        Navigator.of(context).pop();
-                                        await deleteMemo(context, model, memo);
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ],
+                              );
+                              model.fetchMemos();
+                            },
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () async {
+                              await showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('${memo.name}を削除しますか？'),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text('OK'),
+                                        onPressed: () async {
+                                          Navigator.of(context).pop();
+                                          await deleteMemo(
+                                              context, model, memo);
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 )
