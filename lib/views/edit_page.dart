@@ -67,20 +67,44 @@ class EditPage extends StatelessWidget {
                       }
                     },
                   ),
-                  TF(
-                    controller: marketController,
-                    labelText: '市場',
-                    maxLines: 1,
-                    onChanged: (text) {
-                      model.stockMarket = text;
-                    },
-                    validator: (value) {
-                      if (!RegExp(r"^[nN][yY][sS][eE]").hasMatch(value) &&
-                          !RegExp(r"^[nN][aA][sS][dD][aA][qQ]")
-                              .hasMatch(value)) {
-                        return 'NYSEまたはNASDAQのいずれかを入力してください';
-                      }
-                    },
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Market',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                      ListTile(
+                        subtitle: DropdownButton<String>(
+                          underline: Container(
+                            height: 1,
+                            color: Colors.black26,
+                          ),
+                          onChanged: (value) {
+                            model.onChanged(value);
+                            stockmemo.market = value;
+                            // print('value: $value');
+                          },
+                          value:
+                              isUpdate ? stockmemo.market : model.dropdownValue,
+                          // onChanged: model.onChanged,
+                          items: model.markets.map<DropdownMenuItem<String>>(
+                            (String text) {
+                              return DropdownMenuItem<String>(
+                                value: text,
+                                child: Text(text),
+                              );
+                            },
+                          ).toList(),
+                        ),
+                      ),
+                    ],
                   ),
                   TF(
                     controller: memoController,
