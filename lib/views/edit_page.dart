@@ -67,21 +67,19 @@ class EditPage extends StatelessWidget {
                       }
                     },
                   ),
-                  SizedBox(
-                    height: 8,
-                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        'Market',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
                       ListTile(
+                        title: Text(
+                          '市場',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
                         subtitle: DropdownButton<String>(
+                          isExpanded: true,
                           underline: Container(
                             height: 1,
                             color: Colors.black26,
