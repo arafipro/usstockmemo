@@ -3,14 +3,24 @@ import 'package:usstockmemo/models/stock_memo.dart';
 import 'package:usstockmemo/utils/dbhelper.dart';
 
 class EditModel extends ChangeNotifier {
+  List<String> markets = ["NYSE", "NASDAQ"];
+  String _dropdownValue = "NYSE";
+  String get dropdownValue => _dropdownValue;
+
   String stockName = '';
   String stockTicker = '';
-  String stockMarket = 'NYSE';
+  String stockMarket = '';
   String stockMemo = '';
   // DateTime stockCreatedAt = DateTime.now();
   bool isLoading = false;
 
   final dbhelp = DatabaseHelper();
+
+    onChanged(String newValue) {
+    _dropdownValue = newValue;
+    // print(dropdownValue);
+    notifyListeners();
+  }
 
   startLoading() {
     isLoading = true;
@@ -26,7 +36,7 @@ class EditModel extends ChangeNotifier {
     StockMemo newMemo = StockMemo(
       stockName,
       stockTicker,
-      stockMarket,
+      _dropdownValue,
       stockMemo,
       // stockCreatedAt,
     );

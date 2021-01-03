@@ -15,13 +15,11 @@ class EditPage extends StatelessWidget {
     final bool isUpdate = stockmemo != null;
     final nameController = TextEditingController();
     final tickerController = TextEditingController();
-    final marketController = TextEditingController();
     final memoController = TextEditingController();
 
     if (isUpdate) {
       nameController.text = stockmemo.name;
       tickerController.text = stockmemo.ticker;
-      marketController.text = stockmemo.market;
       memoController.text = stockmemo.memo;
     }
 
@@ -67,20 +65,40 @@ class EditPage extends StatelessWidget {
                       }
                     },
                   ),
-                  TF(
-                    controller: marketController,
-                    labelText: '市場',
-                    maxLines: 1,
-                    onChanged: (text) {
-                      model.stockMarket = text;
-                    },
-                    validator: (value) {
-                      if (!RegExp(r"^[nN][yY][sS][eE]").hasMatch(value) &&
-                          !RegExp(r"^[nN][aA][sS][dD][aA][qQ]")
-                              .hasMatch(value)) {
-                        return 'NYSEまたはNASDAQのいずれかを入力してください';
-                      }
-                    },
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ListTile(
+                        title: Text(
+                          '市場',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                        subtitle: DropdownButton<String>(
+                          isExpanded: true,
+                          underline: Container(
+                            height: 1,
+                            color: Colors.black26,
+                          ),
+                          onChanged: (value) {
+                            model.onChanged(value);
+                            stockmemo.market = value;
+                          },
+                          value:
+                              isUpdate ? stockmemo.market : model.dropdownValue,
+                          items: model.markets.map<DropdownMenuItem<String>>(
+                            (String text) {
+                              return DropdownMenuItem<String>(
+                                value: text,
+                                child: Text(text),
+                              );
+                            },
+                          ).toList(),
+                        ),
+                      ),
+                    ],
                   ),
                   TF(
                     controller: memoController,
