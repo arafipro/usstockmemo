@@ -15,13 +15,11 @@ class EditPage extends StatelessWidget {
     final bool isUpdate = stockmemo != null;
     final nameController = TextEditingController();
     final tickerController = TextEditingController();
-    final marketController = TextEditingController();
     final memoController = TextEditingController();
 
     if (isUpdate) {
       nameController.text = stockmemo.name;
       tickerController.text = stockmemo.ticker;
-      marketController.text = stockmemo.market;
       memoController.text = stockmemo.memo;
     }
 
@@ -87,11 +85,9 @@ class EditPage extends StatelessWidget {
                           onChanged: (value) {
                             model.onChanged(value);
                             stockmemo.market = value;
-                            // print('value: $value');
                           },
                           value:
                               isUpdate ? stockmemo.market : model.dropdownValue,
-                          // onChanged: model.onChanged,
                           items: model.markets.map<DropdownMenuItem<String>>(
                             (String text) {
                               return DropdownMenuItem<String>(
