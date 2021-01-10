@@ -44,7 +44,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.toushi-muzu.usstockmemo"
+        applicationId "com.macbookhiro.usstockmemo"
         minSdkVersion 16
         targetSdkVersion 29
 		multiDexEnabled true
