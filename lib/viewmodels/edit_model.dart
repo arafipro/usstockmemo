@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:usstockmemo/models/stock_memo.dart';
 import 'package:usstockmemo/utils/dbhelper.dart';
+import 'package:intl/intl.dart';
 
 class EditModel extends ChangeNotifier {
   List<String> markets = ["NYSE", "NASDAQ"];
@@ -11,8 +12,9 @@ class EditModel extends ChangeNotifier {
   String stockTicker = '';
   String stockMarket = '';
   String stockMemo = '';
-  String stockCreatedAt = DateTime.now().toString();
-  String stockUpdatedAt = DateTime.now().toString();
+  // datetime型をDateFormatで日時のフォーマットを整える
+  String stockCreatedAt = DateFormat('yyyy/MM/dd HH:mm').format(DateTime.now()).toString();
+  String stockUpdatedAt = '';
 
   bool isLoading = false;
 
@@ -20,7 +22,6 @@ class EditModel extends ChangeNotifier {
 
   onChanged(String newValue) {
     _dropdownValue = newValue;
-    // print(dropdownValue);
     notifyListeners();
   }
 
@@ -38,10 +39,12 @@ class EditModel extends ChangeNotifier {
     StockMemo newMemo = StockMemo(
       stockName,
       stockTicker,
-      _dropdownValue,
+      // stockMarketはdropdownmenuの選択された値を代入
+      stockMarket = _dropdownValue,
       stockMemo,
       stockCreatedAt,
-      stockUpdatedAt,
+      // 新規登録時は更新日時も同日同時間を登録
+      stockUpdatedAt = stockCreatedAt,
     );
     await dbhelp.insertMemo(newMemo);
   }
@@ -64,17 +67,16 @@ class EditModel extends ChangeNotifier {
       stockMemo = memo.memo;
     }
 
-    stockCreatedAt = memo.createdAt;
-    stockUpdatedAt = DateTime.now().toString();
-
     StockMemo changeMemo = StockMemo.withId(
       memo.id,
       stockName,
       stockTicker,
       stockMarket,
       stockMemo,
-      stockCreatedAt,
-      stockUpdatedAt,
+      // 新規登録以降は登録日時を変更することはないので元の価を代入
+      stockCreatedAt = memo.createdAt,
+      // datetime型をDateFormatで日時のフォーマットを整える
+      stockUpdatedAt = DateFormat('yyyy/MM/dd HH:mm').format(DateTime.now()).toString(),
     );
 
     if (memo.id != null) {
