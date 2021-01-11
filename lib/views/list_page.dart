@@ -43,8 +43,7 @@ class ListPage extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(4.0),
                                 child: Text(
-                                  // memo.memo,
-                                  "業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。",
+                                  memo.memo,
                                   style: TextStyle(fontSize: 16),
                                 ),
                               ),
@@ -52,20 +51,17 @@ class ListPage extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          width: 8,
+                          height: 10,
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Text(
-                              '編集日時：' + memo.createdAt.toString(),
+                              '登録日時：' + memo.createdAt,
                               style: TextStyle(fontSize: 14),
                             ),
-                            SizedBox(
-                              width: 8,
-                            ),
                             Text(
-                              '更新日時：' + memo.updatedAt.toString(),
+                              '更新日時：' + memo.updatedAt,
                               style: TextStyle(fontSize: 14),
                             ),
                           ],
