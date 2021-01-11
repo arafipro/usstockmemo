@@ -31,27 +31,44 @@ class ListPage extends StatelessWidget {
                                 children: [
                                   Text(
                                     '(' + memo.ticker.toUpperCase() + ')',
-                                    textAlign: TextAlign.center,
                                   ),
                                   SizedBox(
                                     width: 8,
                                   ),
                                   Text(
                                     memo.market.toUpperCase(),
-                                    textAlign: TextAlign.center,
                                   ),
-                                  // SizedBox(
-                                  //   width: 8,
-                                  // ),
-                                  // Text('登録日時')
                                 ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  // memo.memo,
+                                  "業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。業績株。",
+                                  style: TextStyle(fontSize: 16),
+                                ),
                               ),
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(memo.memo),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              '登録日時：2021.01.01 12:12',
+                              style: TextStyle(fontSize: 14),
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              '更新日時：2021.01.01 12:12',
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ],
                         ),
                         ButtonBar(
                           alignment: MainAxisAlignment.spaceEvenly,
