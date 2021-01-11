@@ -46,11 +46,13 @@ class DatabaseHelper {
     return memosDatabase;
   }
 
-  void _createDb(Database db, int newVersion) async {
+  void _createDb(Database db, int version) async {
     // sql文は大文字ではなく小文字で記述しないとエラーになるよう（なぜかはわからない）
     await db.execute(
-        """create table $memoTable($colId integer primary key autoincrement, $colName text,
-          $colTicker text, $colmarket text, $colMemo text""");
+        """CREATE TABLE $memoTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colName TEXT,
+          $colTicker TEXT, $colmarket TEXT, $colMemo TEXT, $colCreatedAt TIMESTAMP, $colUpdatedAt TIMESTAMP)""");
+        // """CREATE TABLE $memoTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colName TEXT,
+        //   $colTicker TEXT, $colmarket TEXT, $colMemo TEXT)""");
   }
 
   void _upgradeDb(Database db, int oldVersion, int newVersion) async {
