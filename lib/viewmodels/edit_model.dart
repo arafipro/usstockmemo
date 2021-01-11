@@ -11,12 +11,14 @@ class EditModel extends ChangeNotifier {
   String stockTicker = '';
   String stockMarket = '';
   String stockMemo = '';
-  // DateTime stockCreatedAt = DateTime.now();
+  String stockCreatedAt = DateTime.now().toString();
+  String stockUpdatedAt = DateTime.now().toString();
+
   bool isLoading = false;
 
   final dbhelp = DatabaseHelper();
 
-    onChanged(String newValue) {
+  onChanged(String newValue) {
     _dropdownValue = newValue;
     // print(dropdownValue);
     notifyListeners();
@@ -38,7 +40,8 @@ class EditModel extends ChangeNotifier {
       stockTicker,
       _dropdownValue,
       stockMemo,
-      // stockCreatedAt,
+      stockCreatedAt,
+      stockUpdatedAt,
     );
     await dbhelp.insertMemo(newMemo);
   }
@@ -61,12 +64,17 @@ class EditModel extends ChangeNotifier {
       stockMemo = memo.memo;
     }
 
+    stockCreatedAt = memo.createdAt;
+    stockUpdatedAt = DateTime.now().toString();
+
     StockMemo changeMemo = StockMemo.withId(
       memo.id,
       stockName,
       stockTicker,
       stockMarket,
       stockMemo,
+      stockCreatedAt,
+      stockUpdatedAt,
     );
 
     if (memo.id != null) {
