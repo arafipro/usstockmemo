@@ -54,18 +54,18 @@ class ListPage extends StatelessWidget {
                         SizedBox(
                           width: 8,
                         ),
-                        Row(
+                        Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              '登録日時：2021.01.01 12:12',
+                              '編集日時：' + memo.createdAt.toString(),
                               style: TextStyle(fontSize: 14),
                             ),
                             SizedBox(
                               width: 8,
                             ),
                             Text(
-                              '更新日時：2021.01.01 12:12',
+                              '更新日時：' + memo.updatedAt.toString(),
                               style: TextStyle(fontSize: 14),
                             ),
                           ],
