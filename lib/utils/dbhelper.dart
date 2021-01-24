@@ -8,13 +8,14 @@ class DatabaseHelper {
   static DatabaseHelper _databaseHelper; // Singleton DatabaseHelper
   static Database _database; // Singleton Database
 
-  String memoTable = 'memo_table';      // テーブル名
-  String colId = 'id';                  // KEY
-  String colName = 'name';              // 銘柄名
-  String colTicker = 'ticker';          // ティッカー
-  String colmarket = 'market';          // 市場
-  String colMemo = 'memo';              // メモ
-  // String colRecordedAt = 'recordedAt';  // 記録日時
+  String memoTable = 'memo_table';    // テーブル名
+  String colId = 'id';                // KEY
+  String colName = 'name';            // 銘柄名
+  String colTicker = 'ticker';        // ティッカー
+  String colmarket = 'market';        // 市場
+  String colMemo = 'memo';            // メモ
+  String colCreatedAt = 'createdAt';  // 登録日時
+  String colUpdatedAt = 'updatedAt';  // 更新日時
 
   DatabaseHelper._createInstance();
   // Named constructor to create instance of DatabaseHelper(DatabaseHelperのインスタンスを作成するための名前付きコンストラクター)
@@ -40,17 +41,31 @@ class DatabaseHelper {
     String path = directory.path + 'stockmemos.db';
 
     // Open/create the database at a given path
-    var memosDatabase =
-        await openDatabase(path, version: 1, onCreate: _createDb);
+    var memosDatabase = await openDatabase(path,
+        version: 3, onCreate: _createDb, onUpgrade: _upgradeDb);
     return memosDatabase;
   }
 
-  void _createDb(Database db, int newVersion) async {
+  void _createDb(Database db, int version) async {
     // sql文は大文字ではなく小文字で記述しないとエラーになるよう（なぜかはわからない）
     await db.execute(
-      """create table $memoTable($colId integer primary key autoincrement, $colName text,
-          $colTicker text, $colmarket text, $colMemo text)""");
-          // $colTicker text, $colmarket text, $colMemo text, $colRecordedAt datetime)""");
+        """CREATE TABLE $memoTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colName TEXT,
+          $colTicker TEXT, $colmarket TEXT, $colMemo TEXT, $colCreatedAt TIMESTAMP, $colUpdatedAt TIMESTAMP)""");
+        // """CREATE TABLE $memoTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colName TEXT,
+        //   $colTicker TEXT, $colmarket TEXT, $colMemo TEXT)""");
+  }
+
+  void _upgradeDb(Database db, int oldVersion, int newVersion) async {
+    var scripts = {
+      '2': ['ALTER TABLE $memoTable ADD COLUMN $colCreatedAt TIMESTAMP;'],
+      '3': ['ALTER TABLE $memoTable ADD COLUMN $colUpdatedAt TIMESTAMP;'],
+    };
+    for (var i = oldVersion + 1; i <= newVersion; i++) {
+      var queries = scripts[i.toString()];
+      for (String query in queries) {
+        await db.execute(query);
+      }
+    }
   }
 
   // Fetch Operation: Get all Memo objects from database

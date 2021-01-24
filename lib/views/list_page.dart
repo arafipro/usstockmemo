@@ -31,27 +31,40 @@ class ListPage extends StatelessWidget {
                                 children: [
                                   Text(
                                     '(' + memo.ticker.toUpperCase() + ')',
-                                    textAlign: TextAlign.center,
                                   ),
                                   SizedBox(
                                     width: 8,
                                   ),
                                   Text(
                                     memo.market.toUpperCase(),
-                                    textAlign: TextAlign.center,
                                   ),
-                                  // SizedBox(
-                                  //   width: 8,
-                                  // ),
-                                  // Text('登録日時')
                                 ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  memo.memo,
+                                  style: TextStyle(fontSize: 16),
+                                ),
                               ),
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(memo.memo),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              '登録日時：' + memo.createdAt,
+                              style: TextStyle(fontSize: 14),
+                            ),
+                            Text(
+                              '更新日時：' + memo.updatedAt,
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ],
                         ),
                         ButtonBar(
                           alignment: MainAxisAlignment.spaceEvenly,
