@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:usstockmemo/components/ad.dart';
 import 'package:usstockmemo/models/stock_memo.dart';
 import 'package:usstockmemo/viewmodels/list_model.dart';
 import 'package:usstockmemo/views/edit_page.dart';
@@ -96,18 +97,13 @@ class ListPage extends StatelessWidget {
                                 await showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text('${memo.name}を削除しますか？'),
-                                      actions: <Widget>[
-                                        FlatButton(
-                                          child: Text('OK'),
-                                          onPressed: () async {
-                                            Navigator.of(context).pop();
-                                            await deleteMemo(
-                                                context, model, memo);
-                                          },
-                                        ),
-                                      ],
+                                    return AD(
+                                      title: '${memo.name}を削除しますか？',
+                                      buttonText: 'OK',
+                                      onPressed: () async {
+                                        Navigator.of(context).pop();
+                                        await deleteMemo(context, model, memo);
+                                      },
                                     );
                                   },
                                 );
@@ -162,16 +158,9 @@ class ListPage extends StatelessWidget {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(title),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+        return AD(
+          title: title,
+          buttonText: 'OK',
         );
       },
     );

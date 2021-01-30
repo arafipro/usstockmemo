@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:usstockmemo/components/adbanner.dart';
+import 'package:usstockmemo/components/ad.dart';
 import 'package:usstockmemo/components/tf.dart';
 import 'package:usstockmemo/models/stock_memo.dart';
 import 'package:usstockmemo/viewmodels/edit_model.dart';
 
 class EditPage extends StatelessWidget {
-  EditPage({this.stockmemo});
+  EditPage({
+    this.stockmemo,
+  });
   final StockMemo stockmemo;
   final _key = GlobalKey<FormState>();
 
@@ -150,16 +153,9 @@ class EditPage extends StatelessWidget {
       await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('保存しました'),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
+          return AD(
+            title: '保存しました',
+            buttonText: 'OK',
           );
         },
       );
@@ -168,16 +164,9 @@ class EditPage extends StatelessWidget {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(e.toString()),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
+          return AD(
+            title: e.toString(),
+            buttonText: 'OK',
           );
         },
       );
@@ -190,16 +179,9 @@ class EditPage extends StatelessWidget {
       await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('変更しました'),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
+          return AD(
+            title: '変更しました',
+            buttonText: 'OK',
           );
         },
       );
@@ -208,16 +190,9 @@ class EditPage extends StatelessWidget {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(e.toString()),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
+          return AD(
+            title: e.toString(),
+            buttonText: 'OK',
           );
         },
       );
