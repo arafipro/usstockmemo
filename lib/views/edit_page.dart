@@ -30,7 +30,7 @@ class EditPage extends StatelessWidget {
       create: (_) => EditModel(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(isUpdate ? '米国株投資メモ - 編集' : '米国株メモ帳 - 新規登録'),
+          title: Text(isUpdate ? '米国株投資メモ - 編集' : '米国株投資メモ - 新規登録'),
         ),
         body: Consumer<EditModel>(
           builder: (context, model, child) {
