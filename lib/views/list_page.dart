@@ -26,26 +26,43 @@ class ListPage extends StatelessWidget {
                               Text(
                                 memo.name,
                                 textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 8,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     '(' + memo.ticker.toUpperCase() + ')',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 8,
                                   ),
                                   Text(
                                     memo.market.toUpperCase(),
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                    ),
                                   ),
                                 ],
+                              ),
+                              SizedBox(
+                                height: 8,
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(4.0),
                                 child: Text(
                                   memo.memo,
-                                  style: TextStyle(fontSize: 16),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
                                 ),
                               ),
                             ],
